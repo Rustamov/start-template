@@ -1,17 +1,3 @@
-// npm install --save-dev gulp
-// npm install --save-dev gulp-autoprefixer
-// npm install --save-dev gulp-minify-css
-// npm install --save-dev browser-sync
-// npm install --save-dev gulp-imagemin
-// npm install --save-dev imagemin-pngquant
-// npm install --save-dev gulp-uglifyes
-// npm install --save-dev gulp-sass
-// npm install --save-dev gulp-rigger
-// npm install --save-dev gulp-watch
-// npm install --save-dev gulp-rename
-// npm i --save-dev gulp-concat
-
-
 var gulp = require('gulp'),
     watch = require('gulp-watch'),
     prefixer = require('gulp-autoprefixer'),
