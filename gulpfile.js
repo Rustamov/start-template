@@ -28,6 +28,7 @@ var path = {
 
             'node_modules/jquery/dist/jquery.min.js',
             //'node_modules/slick-carousel/slick/slick.min.js',
+            // 'node_modules/swiper/swiper-bundle.js',
             // 'node_modules/object-fit-images/dist/ofi.min.js',
             'node_modules/svg4everybody/dist/svg4everybody.legacy.min.js',
             'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.js',
