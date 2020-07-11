@@ -11,7 +11,7 @@ git clone https://github.com/Rustamov/start-template.git project-name && cd proj
 ### Создай новый репозиторий
 
 Создаем репозиторий с названием проекта
-```https://gitlab.com/avdcomp/new```
+```https://gitlab.com/Rustamov/project-name```
 
 ### Инициализация GIT
 
