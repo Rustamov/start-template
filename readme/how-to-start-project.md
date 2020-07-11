@@ -23,7 +23,7 @@ git clone https://github.com/Rustamov/start-template.git project-name && cd proj
 
 `git commit -m "Start"` - коммитим все изменения
 
-`git remote add origin https://gitlab.com/avdcomp/project-name.git` - добавляем адресс созданного репозитория
+`git remote add origin https://github.com/Rustamov/project-name.git` - добавляем адресс созданного репозитория
 
 `git push origin master` - пушим изменения
 
