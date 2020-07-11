@@ -5,7 +5,7 @@
 
 Клонируем проект в папку `new-project` и переходим в нее
 ```
-git clone https://gitlab.com/avdcomp/start-template.git project-name && cd project-name
+git clone https://github.com/Rustamov/start-template.git project-name && cd project-name
 ```
 
 ### Создай новый репозиторий
