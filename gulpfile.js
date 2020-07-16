@@ -10,7 +10,15 @@ var gulp = require('gulp'),
     pngquant = require('imagemin-pngquant'),
     browserSync = require("browser-sync"),
     concat = require('gulp-concat'),
-    reload = browserSync.reload;
+    reload = browserSync.reload,
+    groupCssMediaQueries = require('gulp-group-css-media-queries'),
+    gulpIf = require('gulp-if'),
+    gutil = require('gulp-util'),
+    sourcemaps = require('gulp-sourcemaps'),
+    cleanCSS = require('gulp-clean-css'),
+    env = gutil.env.env;
+
+console.log(env);
 
 var path = {
     build: { //Тут мы укажем куда складывать готовые после сборки файлы
@@ -27,11 +35,11 @@ var path = {
         js: [
 
             'node_modules/jquery/dist/jquery.min.js',
-            //'node_modules/slick-carousel/slick/slick.min.js',
+            'node_modules/slick-carousel/slick/slick.min.js',
             // 'node_modules/swiper/swiper-bundle.js',
-            // 'node_modules/object-fit-images/dist/ofi.min.js',
             'node_modules/svg4everybody/dist/svg4everybody.legacy.min.js',
             'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.js',
+            'node_modules/object-fit-images/dist/ofi.min.js',
             //'node_modules/wowjs/dist/wow.min.js',
             //'node_modules/magnific-popup/dist/jquery.magnific-popup.min.js',
 
@@ -74,21 +82,25 @@ gulp.task('html:build', function () {
 });
 gulp.task('js:build', function () {
     return gulp.src(path.src.js) //Найдем наш main файл
-        .pipe(concat('scripts.min.js'))
-        .pipe(uglify())//Сожмем наш js
+        .pipe(concat('scripts.js'))
+        .pipe(gulpIf(env !== 'dev',uglify()))//Сожмем наш js
 
         .pipe(gulp.dest(path.build.js)) //Выплюнем готовый файл в build
         .pipe(reload({stream: true})); //И перезагрузим сервер
 });
 gulp.task('style:build', function () {
     return gulp.src(path.src.style) //Выберем наш main.scss
+        .pipe(gulpIf(env == 'dev', sourcemaps.init()))
         .pipe(sass()) //Скомпилируем
-        .pipe(concat('styles.min.css'))
-        .pipe(prefixer({
+        .pipe(concat('styles.css'))
+        .pipe(gulpIf(env !== 'dev', prefixer({
             overrideBrowserslist: ['last 10 versions'],
             cascade: false
-        })) //Добавим вендорные префиксы
-        .pipe(cssmin()) //Сожмем
+        }))) //Добавим вендорные префиксы
+        .pipe(gulpIf(env !== 'dev', groupCssMediaQueries())) //Группируем медиазапросы
+        .pipe(gulpIf(env !== 'dev', cssmin())) //Сожмем
+        .pipe(cleanCSS())
+        .pipe(gulpIf(env == 'dev', sourcemaps.write('')))
         .pipe(gulp.dest(path.build.css)) //И в build
         .pipe(reload({stream: true}));
 });
@@ -143,4 +155,5 @@ gulp.task('watch', function () {
 gulp.task('webserver', function () {
     browserSync(config);
 });
-gulp.task('default', gulp.parallel(['build', 'webserver', 'watch']));
+gulp.task('default', gulp.parallel(['build']));
+gulp.task('dev', gulp.parallel(['build', 'webserver', 'watch']));
