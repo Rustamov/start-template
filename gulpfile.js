@@ -119,6 +119,7 @@ gulp.task('templates', function () {
           ] //remove tags: a, span, svg, button, img,
     }))
     .pipe(gulp.dest(path.build.pug))
+    .pipe(reload({stream: true}));
 
 });
 
@@ -188,7 +189,8 @@ gulp.task('svgSprite', function () {
         }
       }
     }))
-    .pipe(gulp.dest(path.build.svgSprite));
+    .pipe(gulp.dest(path.build.svgSprite))
+    .pipe(reload({stream: true}));
 });
 
 
@@ -213,7 +215,7 @@ gulp.task('pngSprite', function () {
     const cssStream = spriteData.css
         .pipe(gulp.dest('src/style/'));
 
-    return merge(imgStream, cssStream);
+    return merge(imgStream, cssStream).pipe(reload({stream: true}));
 });
 
 
